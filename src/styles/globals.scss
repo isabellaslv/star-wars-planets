@@ -5,11 +5,8 @@ html {
 }
 
 body {
-  color: var(--foreground);
   background: $background;
   font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -34,7 +31,7 @@ button {
   width: 100%;
 
   .sidebar {
-    flex: 0 0 300px;
+    flex: 0 0 18.75rem;
     padding: 2rem;
     background-color: #070b0e;
     color: #fff;

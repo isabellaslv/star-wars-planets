@@ -19,23 +19,40 @@
     display: flex;
     justify-content: flex-end;
   }
-}
 
-.title {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #9eacbf;
-  margin-bottom: 16px;
-  letter-spacing: 1px;
-}
-
-.info {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  font-weight: 300;
-
-  p {
-    margin: 8px 0;
-    color: $white;
+  .title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #9eacbf;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
   }
+
+  .info {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 300;
+
+    p {
+      margin: 8px 0;
+      color: $white;
+    }
+  }
+
+  .icon {
+    vertical-align: middle;
+    margin-right: 0.25rem;
+  }
+}
+
+.terrain .icon {
+  color: #746a87;
+}
+
+.diameter .icon {
+  color: #4e615b;
+}
+
+.films .icon {
+  color: #4d617b;
 }

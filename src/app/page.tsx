@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, useCallback } from "react";
 import Card from "@/components/card";
 import { PLANETS_API, FILMS_API } from "@/utils/constants";
 import { mapPlanet } from "@/utils/helpers";
@@ -18,38 +18,39 @@ export default function PlanetsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [notFound, setNotFound] = useState(false);
 
+  const fetchPlanets = useCallback(
+    async (pageValue: number, filmsList: Film[], search?: string) => {
+      setLoading(true);
+      setNotFound(false);
+      try {
+        const res = await fetch(
+          `${PLANETS_API}?page=${pageValue}&search=${search || ""}`
+        );
+        const data = await res.json();
+        setTotalPages(Math.ceil(data.count / 10));
+        setPlanets(data.results.map((p: Planets) => mapPlanet(p, filmsList)));
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
   useEffect(() => {
-    const fetchFilms = async () => {
+    const fetchFilmsAndPlanets = async () => {
       try {
         const res = await fetch(FILMS_API);
         const data = await res.json();
         setFilms(data.results);
-        fetchPlanets(1, data.results, "");
+        await fetchPlanets(1, data.results);
       } catch (err) {
         console.error(err);
       }
     };
-    fetchFilms();
-  }, []);
-
-  const fetchPlanets = async (
-    value: number,
-    films: Film[],
-    search?: string
-  ) => {
-    setLoading(true);
-    setNotFound(false);
-    try {
-      const res = await fetch(`${PLANETS_API}?page=${value}&search=${search}`);
-      const data = await res.json();
-      setTotalPages(Math.ceil(data.count / 10));
-      setPlanets(data.results.map((p: Planets) => mapPlanet(p, films)));
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchFilmsAndPlanets();
+  }, [fetchPlanets]);
 
   const handlePageChange = (_: unknown, value: number) => {
     setPage(value);
