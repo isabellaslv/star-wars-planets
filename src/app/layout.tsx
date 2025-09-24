@@ -1,5 +1,11 @@
 import Button from "@mui/material/Button";
 import "./../styles/globals.scss";
+import { Roboto_Slab } from "next/font/google";
+
+const font = Roboto_Slab({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 export default function RootLayout({
   children,
@@ -7,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={font.className}>
       <body>
         <div className="container">
           <div className="sidebar">

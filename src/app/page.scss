@@ -1,0 +1,39 @@
+@import "./../styles/variables";
+
+.page {
+  /* background-color: #121212; */
+  color: #efefef;
+  min-height: 100vh;
+  padding: 2rem 12rem;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+
+  & > * {
+    flex: 1 1 250px;
+    max-width: 300px;
+  }
+}
+
+.pagination {
+  button {
+    color: #efefef !important;
+  }
+  button.Mui-selected {
+    background-color: rgb(255 255 255 / 8%) !important;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 80vh;
+}

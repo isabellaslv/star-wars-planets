@@ -1,9 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import styles from "./page.module.css";
-import BasicCard from "@/components/card";
-import { Pagination } from "@mui/material";
+import { useState, useEffect } from "react";
+import "./page.scss";
+import Card from "@/components/card";
+import {
+  Pagination,
+  CircularProgress,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material";
+import { Planets } from "@/interfaces/types";
 
 interface Planet {
   name: string;
@@ -14,27 +21,106 @@ interface Planet {
   url: string;
 }
 
+interface Film {
+  url: string;
+  title: string;
+}
+
 export default function PlanetsPage() {
   const [planets, setPlanets] = useState<Planet[]>([]);
+  const [films, setFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // if (loading) return <div className={styles.loading}>Loading planets...</div>;
+  useEffect(() => {
+    const fetchFilms = async () => {
+      try {
+        const filmRes = await fetch("https://swapi.dev/api/films/");
+        const filmData = await filmRes.json();
+        setFilms(filmData.results);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchFilms();
+    fetchPlanets(1);
+  }, []);
+
+  const fetchPlanets = async (value: number) => {
+    setLoading(true);
+    try {
+      const planetRes = await fetch(
+        `https://swapi.dev/api/planets/?page=${value}`
+      );
+      const planetData = await planetRes.json();
+
+      setTotalPages(Math.ceil(planetData.count / 10));
+
+      const planetsWithFilms: Planet[] = planetData.results.map(
+        (planet: Planets) => {
+          const filmTitles = planet.films.map((filmUrl: string) => {
+            const film = films.find((f: Film) => f.url === filmUrl);
+            return film ? film.title : "";
+          });
+
+          return {
+            name: planet.name,
+            terrain: planet.terrain,
+            diameter: planet.diameter,
+            climate: planet.climate,
+            films: filmTitles,
+            url: planet.url,
+          };
+        }
+      );
+
+      setPlanets(planetsWithFilms);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePageChange = (_: unknown, value: number) => {
+    setPage(value);
+    fetchPlanets(value);
+  };
+
+  if (loading)
+    return (
+      <div className="loading-container">
+        <CircularProgress style={{ color: "#ffffff" }} />
+      </div>
+    );
 
   return (
-    <div className={styles.page}>
-      <div className={styles.list}>
-        <BasicCard />
-        <BasicCard />
-        <BasicCard />
-        <BasicCard />
-        <BasicCard />
-        <BasicCard />
-        <BasicCard />
-        <BasicCard />
-        <BasicCard />
+    <div className="page">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-between",
+          marginBottom: "1rem",
+        }}
+      >
+        <TextField
+          variant="outlined"
+          placeholder="Search planets..."
+          // value={search}
+          // onChange={handleSearchChange}
+        />
+        <Pagination
+          className="pagination"
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+        />
       </div>
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Pagination count={10} />
+      <div className="list">
+        {planets.map((planet) => (
+          <Card key={planet.url} planet={planet} />
+        ))}
       </div>
     </div>
   );

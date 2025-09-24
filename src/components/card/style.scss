@@ -1,0 +1,44 @@
+@import "./../../styles/variables";
+
+.card {
+  width: 100%;
+  max-width: 430px;
+  min-width: 380px;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #11171d;
+  color: $white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #283039;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #9eacbf;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.info {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-weight: 300;
+
+  p {
+    margin: 8px 0;
+    color: $white;
+  }
+}

@@ -1,31 +1,65 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import styles from "./style.module.scss";
-import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
+import "./style.scss";
+import StraightenIcon from "@mui/icons-material/Straighten";
+import TerrainIcon from "@mui/icons-material/Terrain";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import MovieIcon from "@mui/icons-material/Movie";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-export default function BasicCard() {
+interface Planet {
+  name: string;
+  terrain: string;
+  diameter: string;
+  climate: string;
+  films: string[];
+  url: string;
+}
+
+interface CardProps {
+  planet: Planet;
+}
+
+export default function Card({ planet }: CardProps) {
   return (
-    <Card sx={{ minWidth: 275 }} className={styles.card}>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          <PublicTwoToneIcon sx={{ fontSize: 20 }} />
-          Tatooine
-        </Typography>
-        <small> </small>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
+    <div className="card">
+      <h2 className="title">{planet.name}</h2>
+      <div className="info">
+        <p>
+          <TerrainIcon
+            style={{
+              verticalAlign: "middle",
+              marginRight: 4,
+              color: "#746a87",
+            }}
+          />
+          Terrain: {planet.terrain}
+        </p>
+        <p>
+          <StraightenIcon
+            style={{
+              verticalAlign: "middle",
+              marginRight: 4,
+              color: "#4e615b",
+            }}
+          />
+          Diameter: {planet.diameter}
+        </p>
+        <p>
+          <WbSunnyIcon style={{ verticalAlign: "middle", marginRight: 4 }} />
+          Climate: {planet.climate}
+        </p>
+        <p>
+          <MovieIcon
+            style={{
+              verticalAlign: "middle",
+              marginRight: 4,
+              color: "#4d617b",
+            }}
+          />
+          Films: {planet.films.join(", ")}
+        </p>
+      </div>
+    </div>
   );
 }
