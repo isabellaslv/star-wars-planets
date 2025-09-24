@@ -1,0 +1,15 @@
+@import "./../../styles/variables";
+
+.search-container {
+  display: flex;
+  margin-bottom: 2rem;
+
+  .search {
+    background-color: $white !important;
+
+    input,
+    input::placeholder {
+      color: #000 !important;
+    }
+  }
+}

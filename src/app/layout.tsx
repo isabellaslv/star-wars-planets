@@ -1,4 +1,3 @@
-import Button from "@mui/material/Button";
 import "./../styles/globals.scss";
 import { Roboto_Slab } from "next/font/google";
 
@@ -21,9 +20,6 @@ export default function RootLayout({
             <p>
               This is a front-end challenge by <b>Ília</b>
             </p>
-            <div className="buttons">
-              <Button variant="outlined">Primary</Button>
-            </div>
           </div>
           <div className="container">{children}</div>
         </div>

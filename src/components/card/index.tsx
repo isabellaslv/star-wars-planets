@@ -1,11 +1,9 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import "./style.scss";
 import StraightenIcon from "@mui/icons-material/Straighten";
 import TerrainIcon from "@mui/icons-material/Terrain";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import MovieIcon from "@mui/icons-material/Movie";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 interface Planet {
   name: string;

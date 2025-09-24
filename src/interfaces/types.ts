@@ -4,6 +4,7 @@ export type Planet = {
   diameter: string;
   climate: string;
   films: string[];
+  url: string;
 };
 
 export interface Planets {

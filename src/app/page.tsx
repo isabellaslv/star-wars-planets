@@ -3,28 +3,9 @@
 import { useState, useEffect } from "react";
 import "./page.scss";
 import Card from "@/components/card";
-import {
-  Pagination,
-  CircularProgress,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
-import { Planets } from "@/interfaces/types";
-
-interface Planet {
-  name: string;
-  terrain: string;
-  diameter: string;
-  climate: string;
-  films: string[];
-  url: string;
-}
-
-interface Film {
-  url: string;
-  title: string;
-}
+import { Pagination, CircularProgress } from "@mui/material";
+import { Planets, Planet, Film } from "@/interfaces/types";
+import Search from "@/components/search";
 
 export default function PlanetsPage() {
   const [planets, setPlanets] = useState<Planet[]>([]);
@@ -39,15 +20,15 @@ export default function PlanetsPage() {
         const filmRes = await fetch("https://swapi.dev/api/films/");
         const filmData = await filmRes.json();
         setFilms(filmData.results);
+        fetchPlanets(1, filmData.results);
       } catch (err) {
         console.error(err);
       }
     };
     fetchFilms();
-    fetchPlanets(1);
   }, []);
 
-  const fetchPlanets = async (value: number) => {
+  const fetchPlanets = async (value: number, films: Film[]) => {
     setLoading(true);
     try {
       const planetRes = await fetch(
@@ -85,7 +66,7 @@ export default function PlanetsPage() {
 
   const handlePageChange = (_: unknown, value: number) => {
     setPage(value);
-    fetchPlanets(value);
+    fetchPlanets(value, films);
   };
 
   if (loading)
@@ -97,30 +78,19 @@ export default function PlanetsPage() {
 
   return (
     <div className="page">
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-between",
-          marginBottom: "1rem",
-        }}
-      >
-        <TextField
-          variant="outlined"
-          placeholder="Search planets..."
-          // value={search}
-          // onChange={handleSearchChange}
-        />
+      <Search />
+      <div className="list">
+        {planets.map((planet) => (
+          <Card key={planet.url} planet={planet} />
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <Pagination
           className="pagination"
           count={totalPages}
           page={page}
           onChange={handlePageChange}
         />
-      </div>
-      <div className="list">
-        {planets.map((planet) => (
-          <Card key={planet.url} planet={planet} />
-        ))}
       </div>
     </div>
   );
