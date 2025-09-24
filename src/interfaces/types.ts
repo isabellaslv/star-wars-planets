@@ -1,11 +1,13 @@
-export type Planet = {
+import { ChangeEvent } from "react";
+
+export interface Planet {
   name: string;
   terrain: string;
   diameter: string;
   climate: string;
   films: string[];
   url: string;
-};
+}
 
 export interface Planets {
   name: string;
@@ -28,4 +30,8 @@ export interface Film {
   title: string;
   planets: string[];
   url: string;
+}
+
+export interface SearchProps {
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }

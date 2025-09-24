@@ -1,10 +1,4 @@
 import "./../styles/globals.scss";
-import { Roboto_Slab } from "next/font/google";
-
-const font = Roboto_Slab({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
 
 export default function RootLayout({
   children,
@@ -12,14 +6,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={font.className}>
+    <html lang="en">
       <body>
         <div className="container">
           <div className="sidebar">
             <h1>Planets from Star Wars</h1>
-            <p>
+            <small>
+              Dive into the rich and diverse worlds of the Star Wars galaxy. Our
+              website offers detailed information on every known planet, from
+              the desert landscapes of Tatooine to the icy plains of Hoth.
+              Discover key attributes such as climate, terrain, population, and
+              more. Each planet page also highlights the films in which it
+              appears, giving you a complete view of its role in the saga.
+              <br />
+              <br />
               This is a front-end challenge by <b>Ília</b>
-            </p>
+            </small>
           </div>
           <div className="container">{children}</div>
         </div>

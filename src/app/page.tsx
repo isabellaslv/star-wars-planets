@@ -1,11 +1,13 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import "./page.scss";
+import { useState, useEffect, ChangeEvent } from "react";
 import Card from "@/components/card";
-import { Pagination, CircularProgress } from "@mui/material";
+import { PLANETS_API, FILMS_API } from "@/utils/constants";
+import { mapPlanet } from "@/utils/helpers";
+import { Pagination } from "@mui/material";
 import { Planets, Planet, Film } from "@/interfaces/types";
 import Search from "@/components/search";
+import "./page.scss";
+import Loading from "@/components/loading";
 
 export default function PlanetsPage() {
   const [planets, setPlanets] = useState<Planet[]>([]);
@@ -13,14 +15,16 @@ export default function PlanetsPage() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     const fetchFilms = async () => {
       try {
-        const filmRes = await fetch("https://swapi.dev/api/films/");
-        const filmData = await filmRes.json();
-        setFilms(filmData.results);
-        fetchPlanets(1, filmData.results);
+        const res = await fetch(FILMS_API);
+        const data = await res.json();
+        setFilms(data.results);
+        fetchPlanets(1, data.results, "");
       } catch (err) {
         console.error(err);
       }
@@ -28,35 +32,18 @@ export default function PlanetsPage() {
     fetchFilms();
   }, []);
 
-  const fetchPlanets = async (value: number, films: Film[]) => {
+  const fetchPlanets = async (
+    value: number,
+    films: Film[],
+    search?: string
+  ) => {
     setLoading(true);
+    setNotFound(false);
     try {
-      const planetRes = await fetch(
-        `https://swapi.dev/api/planets/?page=${value}`
-      );
-      const planetData = await planetRes.json();
-
-      setTotalPages(Math.ceil(planetData.count / 10));
-
-      const planetsWithFilms: Planet[] = planetData.results.map(
-        (planet: Planets) => {
-          const filmTitles = planet.films.map((filmUrl: string) => {
-            const film = films.find((f: Film) => f.url === filmUrl);
-            return film ? film.title : "";
-          });
-
-          return {
-            name: planet.name,
-            terrain: planet.terrain,
-            diameter: planet.diameter,
-            climate: planet.climate,
-            films: filmTitles,
-            url: planet.url,
-          };
-        }
-      );
-
-      setPlanets(planetsWithFilms);
+      const res = await fetch(`${PLANETS_API}?page=${value}&search=${search}`);
+      const data = await res.json();
+      setTotalPages(Math.ceil(data.count / 10));
+      setPlanets(data.results.map((p: Planets) => mapPlanet(p, films)));
     } catch (err) {
       console.error(err);
     } finally {
@@ -66,32 +53,55 @@ export default function PlanetsPage() {
 
   const handlePageChange = (_: unknown, value: number) => {
     setPage(value);
-    fetchPlanets(value, films);
+    fetchPlanets(value, films, searchTerm);
   };
 
-  if (loading)
-    return (
-      <div className="loading-container">
-        <CircularProgress style={{ color: "#ffffff" }} />
-      </div>
-    );
+  const handleSearch = async (e: ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value;
+    setPage(1);
+    setSearchTerm(searchValue);
+    setLoading(true);
+    setNotFound(false);
+    try {
+      const res = await fetch(`${PLANETS_API}?search=${searchValue}`);
+      const data = await res.json();
+      if (data.count === 0) {
+        setPlanets([]);
+        setNotFound(true);
+        setTotalPages(1);
+      } else {
+        setPlanets(data.results.map((p: Planets) => mapPlanet(p, films)));
+        setTotalPages(Math.ceil(data.count / 10));
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="page">
-      <Search />
-      <div className="list">
-        {planets.map((planet) => (
-          <Card key={planet.url} planet={planet} />
-        ))}
-      </div>
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Pagination
-          className="pagination"
-          count={totalPages}
-          page={page}
-          onChange={handlePageChange}
-        />
-      </div>
+      <Search onChange={handleSearch} />
+      {loading && <Loading />}
+      {notFound && <div className="loading-container">Planet not found</div>}
+      {!notFound && !loading && (
+        <>
+          <div className="list">
+            {planets.map((planet) => (
+              <Card key={planet.url} planet={planet} />
+            ))}
+          </div>
+          <div className="pagination-container">
+            <Pagination
+              className="pagination"
+              count={totalPages}
+              page={page}
+              onChange={handlePageChange}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }
