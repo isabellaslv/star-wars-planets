@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import "./page.scss";
 import TerrainIcon from "@mui/icons-material/Terrain";
 import StraightenIcon from "@mui/icons-material/Straighten";
@@ -10,70 +10,41 @@ import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
 import PeopleIcon from "@mui/icons-material/People";
 import Loading from "@/components/loading";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-interface PlanetDetail {
-  name: string;
-  rotation_period: string;
-  orbital_period: string;
-  diameter: string;
-  climate: string;
-  gravity: string;
-  terrain: string;
-  population: string;
-  residents: string[];
-}
-
-interface Resident {
-  name: string;
-  hair_color: string;
-  eye_color: string;
-  gender: string;
-  species: string[];
-  vehicles: string[];
-}
-
-interface Species {
-  name: string;
-}
-
-interface Vehicle {
-  name: string;
-  model: string;
-}
+import { Planets, Resident, Species, Vehicle } from "@/interfaces/types";
+import { PLANETS_API } from "@/utils/constants";
 
 export default function PlanetPage() {
-  const { id } = useParams();
-  const [planet, setPlanet] = useState<PlanetDetail | null>(null);
+  const [planet, setPlanet] = useState<Planets | null>(null);
   const [residents, setResidents] = useState<Resident[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchPlanet = async () => {
       setLoading(true);
       try {
-        const planetRes = await fetch(`https://swapi.dev/api/planets/${id}/`);
-        const planetData: PlanetDetail = await planetRes.json();
+        const planetRes = await fetch(`${PLANETS_API}${id}/`);
+        const planetData: Planets = await planetRes.json();
         setPlanet(planetData);
 
         const residentData: Resident[] = await Promise.all(
           planetData.residents.map(async (url) => {
             const res = await fetch(url);
-            const data: any = await res.json();
+            const data: Resident = await res.json();
 
             const speciesNames: string[] = await Promise.all(
               data.species.map(async (sUrl: string) => {
-                const sRes = await fetch(sUrl);
-                const sData: Species = await sRes.json();
-                return sData.name;
+                const specieRes = await fetch(sUrl);
+                const specieData: Species = await specieRes.json();
+                return specieData.name;
               })
             );
 
             const vehicleNames: string[] = await Promise.all(
-              data.vehicles.map(async (vUrl: string) => {
-                const vRes = await fetch(vUrl);
-                const vData: Vehicle = await vRes.json();
-                return `${vData.name} (${vData.model})`;
+              data.vehicles.map(async (vehicleUrl: string) => {
+                const vehicleRes = await fetch(vehicleUrl);
+                const vehicleData: Vehicle = await vehicleRes.json();
+                return `${vehicleData.name} (${vehicleData.model})`;
               })
             );
 
@@ -105,7 +76,7 @@ export default function PlanetPage() {
   return (
     <div className="page">
       <div className="back-button" onClick={() => (window.location.href = "/")}>
-        <ArrowBackIcon style={{ color: "#fff", marginRight: "0.5rem" }} />
+        <ArrowBackIcon className="arrow" />
         Back
       </div>
       {loading && <Loading />}

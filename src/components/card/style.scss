@@ -2,17 +2,17 @@
 
 .card {
   width: 100%;
-  min-width: 380px;
+  min-width: 23.75rem;
   padding: 1rem;
-  background-color: #11171d;
+  background-color: $background-dark;
   color: $white;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: 1px solid #283039;
+  border: 1px solid $border-dark;
   cursor: pointer;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
+    transform: translateY(-0.1875rem);
+    box-shadow: 0 0 1rem $shadow-dark;
   }
 
   .footer {
@@ -23,9 +23,9 @@
   .title {
     font-size: 1.3rem;
     font-weight: bold;
-    color: #9eacbf;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
+    color: $text-muted;
+    margin-bottom: 1rem;
+    letter-spacing: 0.0625rem;
   }
 
   .info {
@@ -34,7 +34,7 @@
     font-weight: 300;
 
     p {
-      margin: 8px 0;
+      margin: 0.5rem 0;
       color: $white;
     }
   }
@@ -43,16 +43,19 @@
     vertical-align: middle;
     margin-right: 0.25rem;
   }
-}
+  .terrain .icon {
+    color: $icon-terrain;
+  }
 
-.terrain .icon {
-  color: #746a87;
-}
+  .diameter .icon {
+    color: $icon-diameter;
+  }
 
-.diameter .icon {
-  color: #4e615b;
-}
+  .films .icon {
+    color: $icon-films;
+  }
 
-.films .icon {
-  color: #4d617b;
+  .climate .icon {
+    color: $icon-climate;
+  }
 }

@@ -35,3 +35,21 @@ export interface Film {
 export interface SearchProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface Resident {
+  name: string;
+  hair_color: string;
+  eye_color: string;
+  gender: string;
+  species: string[];
+  vehicles: string[];
+}
+
+export interface Species {
+  name: string;
+}
+
+export interface Vehicle {
+  name: string;
+  model: string;
+}
