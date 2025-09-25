@@ -1,6 +1,6 @@
 # Planets of Star Wars
 
-A **Next.js** front-end application showcasing planets from the Star Wars universe. This project is part of a front-end challenge by **Ília**.
+A **Next.js** front-end application showcasing planets from the Star Wars universe.
 A simple landing page displays a list of planets. Clicking a planet shows its **detailed info** and **residents**.
 
 ![Star Wars GIF](public/starwars2.gif)

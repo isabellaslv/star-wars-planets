@@ -24,7 +24,6 @@ export default function RootLayout({
               appears, giving you a complete view of its role in the saga.
               <br />
               <br />
-              This is a front-end challenge by <b>Ília</b>
             </small>
             <Image
               src="/starwars2.gif"
