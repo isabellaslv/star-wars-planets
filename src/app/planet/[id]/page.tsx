@@ -84,31 +84,31 @@ export default function PlanetPage() {
         <div className="block">
           <h1 className="title">{planet.name}</h1>
           <div className="info">
-            <p className="terrain">
+            <p>
               <TerrainIcon className="icon" />
               Terrain: {planet.terrain}
             </p>
-            <p className="diameter">
+            <p>
               <StraightenIcon className="icon" />
               Diameter: {planet.diameter}
             </p>
-            <p className="climate">
+            <p>
               <WbSunnyIcon className="icon" />
               Climate: {planet.climate}
             </p>
-            <p className="gravity">
+            <p>
               <PublicTwoToneIcon className="icon" />
               Gravity: {planet.gravity}
             </p>
-            <p className="population">
+            <p>
               <PeopleIcon className="icon" />
               Population: {planet.population}
             </p>
-            <p className="rotation">
+            <p>
               <StraightenIcon className="icon" />
               Rotation Period: {planet.rotation_period}
             </p>
-            <p className="orbital">
+            <p>
               <WbSunnyIcon className="icon" />
               Orbital Period: {planet.orbital_period}
             </p>
