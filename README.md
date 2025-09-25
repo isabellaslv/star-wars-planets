@@ -12,7 +12,7 @@ A simple landing page displays a list of planets. Clicking a planet shows its **
 - **Framework:** Next.js 15
 - **Styling:** SCSS
 - **Testing:** Jest + React Testing Library
-- **TypeScript** for type safety
+- **TypeScript**
 
 ---
 
