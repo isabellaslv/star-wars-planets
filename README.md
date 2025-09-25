@@ -83,5 +83,3 @@ illia-challenge/
 ├─ public/                  # Static assets (gif, images)
 └─ package.json
 ```
-
----
