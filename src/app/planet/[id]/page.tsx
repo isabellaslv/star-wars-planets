@@ -142,7 +142,7 @@ export default function PlanetPage() {
               Orbital Period: {planet.orbital_period}
             </p>
           </div>
-
+          <hr></hr>
           <h2>Residents</h2>
           {residents.length === 0 && <p>No known residents</p>}
           <div className="resident-container">

@@ -4,9 +4,15 @@
   min-height: 100vh;
   padding: 2rem 12rem;
   width: 100%;
+  color: $white;
 
   h1,
   h2 {
+    margin-bottom: 1rem;
+    color: #9eacbf;
+  }
+
+  hr {
     margin-bottom: 1rem;
   }
 
@@ -49,5 +55,11 @@
     grid-template-columns: repeat(auto-fill, minmax(21.875rem, 1fr));
     gap: 3rem;
     margin-bottom: 2rem;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
   }
 }
