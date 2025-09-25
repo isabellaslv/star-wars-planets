@@ -8,6 +8,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>Planets of Star Wars</title>
+      </head>
       <body>
         <div className="container">
           <div className="sidebar">
