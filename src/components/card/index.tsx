@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import "./style.scss";
 import TerrainIcon from "@mui/icons-material/Terrain";

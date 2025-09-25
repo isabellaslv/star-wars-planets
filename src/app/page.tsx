@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Card from "@/components/card";
 import { PLANETS_API, FILMS_API } from "@/utils/constants";
 import { mapPlanet } from "@/utils/helpers";

@@ -29,6 +29,7 @@ button {
   min-height: 100vh;
   background-color: $background;
   width: 100%;
+  overflow: hidden;
 
   .sidebar {
     flex: 0 0 18.75rem;

@@ -86,6 +86,7 @@ $color-background-dark: #11171d;
 
     @media (max-width: $breakpoint-mini) {
       font-size: 0.8rem;
+      grid-template-columns: none;
     }
 
     ul {

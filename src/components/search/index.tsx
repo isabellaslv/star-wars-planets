@@ -1,6 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import "./style.scss";
 import { SearchProps } from "@/interfaces/types";
+import React from "react";
 
 export default function Search({ onChange }: SearchProps) {
   return (

@@ -1,7 +1,7 @@
+import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import * as NextNavigation from "next/navigation";
 import PlanetPage from "./page";
-import React from "react";
 
 jest.mock("@/components/loading", () => {
   const Loading: React.FC = () => <div data-testid="loading" />;

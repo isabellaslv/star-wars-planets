@@ -1,6 +1,6 @@
+import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import PlanetsPage from "./page";
-import React from "react";
 
 jest.mock("@/components/card", () => {
   const Card: React.FC = () => <div data-testid="card" />;

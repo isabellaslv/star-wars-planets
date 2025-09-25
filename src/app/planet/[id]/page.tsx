@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import "./page.scss";
 import TerrainIcon from "@mui/icons-material/Terrain";
