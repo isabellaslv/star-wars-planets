@@ -1,4 +1,5 @@
 import "./../styles/globals.scss";
+import Image from "next/image";
 
 export default function RootLayout({
   children,
@@ -22,6 +23,13 @@ export default function RootLayout({
               <br />
               This is a front-end challenge by <b>Ília</b>
             </small>
+            <Image
+              src="/starwars2.gif"
+              alt="Decoration gif of starwars"
+              width={200}
+              height={200}
+              unoptimized
+            />
           </div>
           <div className="container">{children}</div>
         </div>

@@ -21,7 +21,7 @@ a {
 }
 
 button {
-  color: #9eacbf !important;
+  color: $text-muted !important;
 }
 
 .container {
@@ -42,7 +42,7 @@ button {
     h1 {
       margin: 0;
       font-size: 2rem;
-      color: #9eacbf;
+      color: $text-muted;
     }
 
     p {

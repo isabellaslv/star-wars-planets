@@ -10,6 +10,10 @@
   border: 1px solid $border-dark;
   cursor: pointer;
 
+  @media (max-width: $breakpoint-mini) {
+    min-width: 10rem;
+  }
+
   &:hover {
     transform: translateY(-0.1875rem);
     box-shadow: 0 0 1rem $shadow-dark;

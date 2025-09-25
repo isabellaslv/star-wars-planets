@@ -19,6 +19,10 @@
     grid-template-columns: repeat(auto-fill, minmax(21.875rem, 1fr));
     gap: 3rem;
     margin-bottom: 2rem;
+
+    @media (max-width: $breakpoint-mini) {
+      grid-template-columns: none;
+    }
   }
 
   .pagination-container {
