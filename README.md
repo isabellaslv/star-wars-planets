@@ -10,9 +10,7 @@ A simple landing page displays a list of planets. Clicking a planet shows its **
 ## Tech Stack
 
 - **Framework:** Next.js 15
-- **UI Library:** Material-UI (MUI)
 - **Styling:** SCSS
-- **State Management:** React hooks (`useState`, `useEffect`)
 - **Testing:** Jest + React Testing Library
 - **TypeScript** for type safety
 
@@ -52,13 +50,6 @@ npm run start
 ## Testing
 
 - Uses **Jest** + **React Testing Library**.
-- Example tests included for:
-
-  - `Card` component
-  - `Search` component
-  - `Loading` spinner
-  - `PlanetsPage` and `PlanetPage` pages
-  - Utility function `mapPlanet`
 
 Run tests:
 
